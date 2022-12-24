@@ -17,7 +17,7 @@ final class PostUpdateRequest extends APIRequest
     public function authorize()
     {
       $post = $this->route()->parameter('post');
-      return Gate::authorize('has-post', $post);
+      return Gate::inspect('update', $post);
     }
 
     /**

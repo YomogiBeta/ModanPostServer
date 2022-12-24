@@ -16,9 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy("created_at","desc")->limit(30)->get();
+        $posts = Post::orderBy("created_at", "desc")->limit(30)->get();
         return PostsResource::collection($posts);
-        
     }
 
     /**
@@ -65,6 +64,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
         $post->delete();
         return response()->noContent();
     }

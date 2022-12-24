@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Resources\UserResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,14 +28,15 @@ Route::controller(PostController::class)->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
+
+    Route::get('/me', function (Request $request) {
+        return UserResource::make($request->user());
+    });
+
     Route::controller(PostController::class)->group(function () {
         Route::get('/posts/{post}', 'show');
         Route::post('/posts', 'create');
         Route::post('/posts/{post}', 'update');
         Route::delete('/posts/{post}', 'destroy');
     });
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
 });

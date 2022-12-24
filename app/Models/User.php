@@ -32,7 +32,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Posts::class);
     }
 }

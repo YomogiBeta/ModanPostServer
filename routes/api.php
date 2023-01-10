@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Resources\UserResource;
 
@@ -27,6 +28,10 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/posts', 'index');
 });
 
+Route::controller(CommentController::class)->group(function () {
+    Route::get('/posts/{post}/comments', 'index');
+});
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/me', function (Request $request) {
@@ -38,5 +43,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/posts', 'create');
         Route::post('/posts/{post}', 'update');
         Route::delete('/posts/{post}', 'destroy');
+    });
+
+    Route::controller(CommentController::class)->group(function () {
+        Route::post('/comments', 'create');
+        Route::post('/comments/{comment}', 'update');
+        Route::delete('/comments/{comment}', 'destroy');
     });
 });

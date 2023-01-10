@@ -4,17 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kra8\Snowflake\HasSnowflakePrimary;
 
-class Post extends Model
+class Comment extends Model
 {
-    use HasFactory, HasSnowflakePrimary;
+    use HasFactory;
+
 
     protected $casts = [
         'id' => 'string',
         'user_id' => 'string',
+        'post_id' => 'string',
     ];
-
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +23,7 @@ class Post extends Model
      */
     protected $fillable = [
         'user_id',
-        'title',
+        'post_id',
         'content',
     ];
 
@@ -32,8 +32,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function comments()
+    public function post()
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(Post::class);
     }
 }

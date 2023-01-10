@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\PostRequest;
+namespace App\Http\Requests\Post;
 
 use App\Http\Requests\APIRequest;
 use Illuminate\Support\Facades\Gate;
@@ -17,7 +17,7 @@ final class PostUpdateRequest extends APIRequest
     public function authorize()
     {
       $post = $this->route()->parameter('post');
-      return Gate::inspect('update', $post);
+      return Gate::inspect('postUpdate', $post);
     }
 
     /**

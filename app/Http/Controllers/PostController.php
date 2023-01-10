@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRequest\PostCreateRequest;
-use App\Http\Requests\PostRequest\PostUpdateRequest;
+use App\Http\Requests\Post\PostCreateRequest;
+use App\Http\Requests\Post\PostUpdateRequest;
 use App\Http\Resources\PostsResource;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -27,6 +28,7 @@ class PostController extends Controller
      */
     public function create(PostCreateRequest $request)
     {
+        //$param = $request->safe()->merge(['user_id' => $request->user()->id]);
         $param = ['user_id' => $request->user()->id] + $request->validated();
         $post = Post::create($param);
         return PostsResource::make($post);
@@ -40,7 +42,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return PostsResource::make($post);
+        return PostResource::make($post);
     }
 
     /**
@@ -64,7 +66,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->authorize('delete', $post);
+        $this->authorize('postDelete', $post);
         $post->delete();
         return response()->noContent();
     }

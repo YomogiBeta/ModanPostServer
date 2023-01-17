@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::controller(AccountController::class)->group(function () {
         Route::get('/me', 'show');
         Route::post('/me', 'update');
+        Route::post('/me/profile', 'updateProfile');
     });
 
     Route::controller(PostController::class)->group(function () {

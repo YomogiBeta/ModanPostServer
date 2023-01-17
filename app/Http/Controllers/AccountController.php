@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Account\AccountUpdateRequest;
+use App\Http\Requests\Account\AccountProfileImageUpdateRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,20 @@ class AccountController extends Controller
     public function update(AccountUpdateRequest $request)
     {
         $request->user()->update($request->validated());
+        return UserResource::make($request->user());
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  AccountProfileImageUpdateRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProfile(AccountProfileImageUpdateRequest $request)
+    {
+        $filePath = $request->upload_file->store('public/usericons');
+        $profile_path = str_replace('public/', '', $filePath);
+        $request->user()->update(["profile_image" => $profile_path]);
         return UserResource::make($request->user());
     }
 

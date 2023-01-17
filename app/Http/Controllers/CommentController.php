@@ -25,9 +25,9 @@ class CommentController extends Controller
      *
      * @return CommentsResource
      */
-    public function create(CommentCreateRequest $request)
+    public function create(CommentCreateRequest $request, Post $post)
     {
-        $param = ['user_id' => $request->user()->id] + $request->validated();
+        $param = ['user_id' => $request->user()->id, 'post_id' => $post->id] + $request->validated();
         $comment = Comment::create($param);
         return CommentsResource::make($comment);
     }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\AccountController;
 use App\Http\Resources\UserResource;
 
 /*
@@ -34,8 +35,9 @@ Route::controller(CommentController::class)->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
-    Route::get('/me', function (Request $request) {
-        return UserResource::make($request->user());
+    Route::controller(AccountController::class)->group(function () {
+        Route::get('/me', 'show');
+        Route::post('/me', 'update');
     });
 
     Route::controller(PostController::class)->group(function () {
@@ -46,7 +48,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::controller(CommentController::class)->group(function () {
-        Route::post('/comments', 'create');
+        Route::post('/posts/{post}/comments', 'create');
         Route::post('/comments/{comment}', 'update');
         Route::delete('/comments/{comment}', 'destroy');
     });

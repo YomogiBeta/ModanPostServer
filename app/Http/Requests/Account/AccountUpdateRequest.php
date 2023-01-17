@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Comment;
+namespace App\Http\Requests\Account;
 
 use App\Http\Requests\APIRequest;
 
-final class CommentCreateRequest extends APIRequest
+final class AccountUpdateRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ final class CommentCreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return true;
+      return true;
     }
 
     /**
@@ -26,7 +26,9 @@ final class CommentCreateRequest extends APIRequest
     public function rules()
     {
         return [
-            'content' => 'required|string|max:5000'
+          'email' => 'nullable|email|max:255|unique:users,email',
+          'name' => 'nullable|string|max:255',
+          //'password' => 'nullable|string|min:8|max:30|confirmed',
         ];
     }
 }

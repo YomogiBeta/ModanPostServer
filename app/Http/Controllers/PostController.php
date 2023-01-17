@@ -38,7 +38,7 @@ class PostController extends Controller
      * Display the specified resource.
      *
      * @param  Post  $post
-     * @return PostsResource
+     * @return PostResource
      */
     public function show(Post $post)
     {

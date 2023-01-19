@@ -29,7 +29,7 @@ final class PostUpdateRequest extends APIRequest
     {
         return [
             'title' => 'nullable|string|max:30',
-            'content' => 'nullable|string|max:5000'
+            'content' => 'nullable|string|max:1000'
         ];
     }
 }

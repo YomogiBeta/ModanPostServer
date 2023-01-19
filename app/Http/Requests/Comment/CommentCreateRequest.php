@@ -26,7 +26,7 @@ final class CommentCreateRequest extends APIRequest
     public function rules()
     {
         return [
-            'content' => 'required|string|max:5000'
+            'content' => 'required|string|max:1000'
         ];
     }
 }

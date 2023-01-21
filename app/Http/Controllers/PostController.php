@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Post\PostCreateRequest;
 use App\Http\Requests\Post\PostUpdateRequest;
 use App\Http\Resources\PostsResource;
-use App\Http\Resources\PostResource;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -17,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy("created_at", "desc")->limit(30)->get();
+        $posts = Post::orderBy("created_at", "desc")->cursorPaginate(20);
         return PostsResource::collection($posts);
     }
 
@@ -42,7 +41,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return PostResource::make($post);
+        return PostsResource::make($post);
     }
 
     /**

@@ -17,7 +17,7 @@ class CommentController extends Controller
      */
     public function index(Post $post)
     {
-        return CommentsResource::collection($post->comments());
+        return CommentsResource::collection($post->comments()->cursorPaginate(30));
     }
 
     /**

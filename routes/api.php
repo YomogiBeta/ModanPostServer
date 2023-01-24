@@ -1,12 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AccountController;
-use App\Http\Resources\UserResource;
+use App\Http\Controllers\PostImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +21,12 @@ use App\Http\Resources\UserResource;
 Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'authenticate');
     Route::post('/register', 'register');
-    // Route::post('/logout', 'logout');
+    Route::get('/logout', 'logout');
 });
 
 Route::controller(PostController::class)->group(function () {
     Route::get('/posts', 'index');
+    Route::get('/posts/{post}', 'show');
 });
 
 Route::controller(CommentController::class)->group(function () {
@@ -42,10 +42,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::controller(PostController::class)->group(function () {
-        Route::get('/posts/{post}', 'show');
         Route::post('/posts', 'create');
         Route::post('/posts/{post}', 'update');
         Route::delete('/posts/{post}', 'destroy');
+    });
+
+    Route::controller(PostImageController::class)->group(function () {
+        Route::post('/posts/{post}/post_images', 'create');
     });
 
     Route::controller(CommentController::class)->group(function () {

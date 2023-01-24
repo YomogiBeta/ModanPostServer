@@ -27,7 +27,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::guard(config('auth.defaults.guard'))->attempt($credentials,true)) {
+        if (Auth::guard(config('auth.defaults.guard'))->attempt($credentials, true)) {
             $request->session()->regenerate();
             return UserResource::make(Auth::guard(config('auth.defaults.guard'))->user());
         }
@@ -49,5 +49,19 @@ class AuthController extends Controller
         ]);
         $user = User::create($attributes);
         return UserResource::make($user);
+    }
+
+    /**
+     * ユーザーをアプリケーションからログアウトさせる
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return response()->noContent();
     }
 }

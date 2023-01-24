@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy("created_at", "desc")->cursorPaginate(20);
+        $posts = Post::orderBy("id", "desc")->orderBy("created_at", "desc")->cursorPaginate(20);
         return PostsResource::collection($posts);
     }
 

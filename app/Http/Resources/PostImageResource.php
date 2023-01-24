@@ -6,7 +6,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-final class PostsResource extends JsonResource
+final class PostImageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,12 +18,8 @@ final class PostsResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'owner_id' => $this->user_id,
-            'profile_image' => $this->user->profile_image,
-            'owner_name' => $this->user->name,
-            'title' => $this->title,
-            'content' => $this->content,
-            'images' => PostImageResource::collection($this->postImages),
+            'post_id' => $this->post_id,
+            'path' => $this->path,
             'created_at' => $this->created_at,
         ];
     }

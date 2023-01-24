@@ -6,6 +6,7 @@ use App\Http\Requests\Account\AccountUpdateRequest;
 use App\Http\Requests\Account\AccountProfileImageUpdateRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {

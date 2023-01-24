@@ -8,4 +8,4 @@ stop:
 	./vendor/bin/sail stop
 
 migrate:
-	./vendor/bin/sail php artisan migrate:fresh
+	./vendor/bin/sail php artisan migrate:fresh --seed

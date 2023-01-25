@@ -27,7 +27,7 @@ final class PostCreateRequest extends APIRequest
     {
         return [
             'title' => 'required|string|max:30',
-            'content' => 'required|string|max:1000'
+            'content' => 'required|string|max:2400'
         ];
     }
 }
